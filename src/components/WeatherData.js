@@ -20,7 +20,7 @@ export const WeatherData = ({data}) => {
                     <img src={`http://openweathermap.org/img/wn/10d@2x.png`} alt='weather icon' className='weather-icon' />
                     <div>
                         <h2>{name}, {country}</h2>
-                        <h3 className='description'>Sunny</h3>
+                        <h3 className='description'>{description}</h3>
                     </div>
                 </div>
                 <div className='temp-main'>
@@ -45,10 +45,3 @@ export const WeatherData = ({data}) => {
         </>
     )
 }
-
-
-{/* <a href="https://www.flaticon.com/free-icons/wind" title="wind icons">Wind icons created by Vitaly Gorbachev - Flaticon</a> */}
-
-{/* <a href="https://www.flaticon.com/free-icons/water-drop" title="water drop icons">Water drop icons created by Good Ware - Flaticon</a> */}
-
-{/* <a href="https://www.flaticon.com/free-icons/clock" title="clock icons">Clock icons created by Those Icons - Flaticon</a> */}

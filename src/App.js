@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import {WeatherData} from './components/WeatherData'
-import { StatusData } from './components/StatusData';
+
+import { WeatherData } from './components/WeatherData'
+import { StatusData } from './components/StatusData'
 
 class App extends React.Component {
   constructor(props) {
@@ -20,14 +21,16 @@ class App extends React.Component {
 
     const success = (position) => {
       this.setState({status: 'fetching'});
+      localStorage.setItem('location-allowed', true);
       this.getWeatherData(position.coords.latitude, position.coords.longitude);
     }
-
+    
     const error = () => {
       this.setState({status: 'unable'});
+      localStorage.removeItem('location-allowed');
       alert('Unable to retrieve location.');
     }
-
+    
     if (navigator.geolocation) {
       this.setState({status: 'fetching'});
       navigator.geolocation.getCurrentPosition(success, error);
@@ -77,18 +80,9 @@ class App extends React.Component {
       }
     );
   }
-
-  componentDidMount() {
-    // this.weatherInit();
-    if(localStorage.getItem('location-allowed')) {
-      this.weatherInit();
-    } else {
-      return;
-    }
-  }
-
-  componentWillUnmount() {
-    this.abortController.abort();
+  
+  onClick = () => {
+    this.weatherInit();
   }
 
   returnActiveView = (status) => {
@@ -109,8 +103,17 @@ class App extends React.Component {
     }
   }
 
-  onClick = () => {
-    this.weatherInit();
+
+  componentDidMount() {
+    if(localStorage.getItem('location-allowed')) {
+      this.weatherInit();
+    } else {
+      return;
+    }
+  }
+
+  componentWillUnmount() {
+    this.abortController.abort();
   }
 
   render() {
@@ -123,4 +126,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
